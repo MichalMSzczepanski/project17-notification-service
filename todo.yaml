@@ -1,0 +1,22 @@
+5 issues:
+
+4 logic:
+  - test receiving kafka messages
+  - email client
+  - sms client
+  - abstraction for notification execution
+  - exceptions
+  - configure event deletion from kafka once consumed
+3 semantics:
+  - application.prod + manual tests
+2 config:
+  - logging configuration
+  - pom.xml cleaning (user-service benchmark)
+  - request head
+1 git:
+  - lorem
+wishlist:
+  - lorem
+  - aspects:
+      - lorem
+

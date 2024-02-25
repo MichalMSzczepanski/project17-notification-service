@@ -1,0 +1,15 @@
+5 fixes:
+  <not tracked>
+4 logic:
+  - lorem
+3 semantics:
+  - lorem
+2 config:
+  2 add logger
+  1 receive kafka messages from notification_topic
+1 git:
+  - lorem
+wishlist:
+  - lorem
+  - aspects:
+      - lorem
