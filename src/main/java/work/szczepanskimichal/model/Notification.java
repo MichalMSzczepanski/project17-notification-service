@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import work.szczepanskimichal.enums.NotificationSubject;
-import work.szczepanskimichal.enums.NotificationType;
 
 import java.io.Serializable;
 import java.util.Map;
