@@ -5,6 +5,7 @@
 3 semantics:
   - lorem
 2 config:
+  4 configure prod env
   3 add email sending function
   2 add logger
   1 receive kafka messages from notification_topic

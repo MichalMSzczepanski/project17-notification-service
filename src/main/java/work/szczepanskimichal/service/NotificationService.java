@@ -15,6 +15,7 @@ public class NotificationService {
         var to = notification.getAddressee();
         var subject = notification.getSubject();
         var messageParameters = notification.getMessageParameters();
+        //todo message params can be null, fix
         if (to == null || subject == null || messageParameters == null) {
             //todo create custom exception
             throw new IllegalArgumentException("Notification properties cannot be null");
