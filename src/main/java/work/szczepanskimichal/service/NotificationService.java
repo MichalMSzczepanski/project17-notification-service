@@ -1,28 +1,31 @@
 package work.szczepanskimichal.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import work.szczepanskimichal.model.Notification;
 
 @Service
 @RequiredArgsConstructor
 public class NotificationService {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final MessageBuilder messageBuilder;
+    private final EmailService emailService;
 
-    @KafkaListener(topics = "NOTIFICATION_TOPIC", groupId = "my-group")
-    public void receiveMessage(String message) {
-        try {
-            // Deserialize the received message to Email object
-            Notification notification = objectMapper.readValue(message, Notification.class);
+    public void processNotification(Notification notification) {
+        var to = notification.getAddressee();
+        var subject = notification.getSubject();
+        var messageParameters = notification.getMessageParameters();
+        if (to == null || subject == null || messageParameters == null) {
+            //todo create custom exception
+            throw new IllegalArgumentException("Notification properties cannot be null");
+        }
 
-            // Process the received Email object
-            // You can implement your logic here to handle the received email notification
-            System.out.println("Received email notification: " + notification);
-        } catch (Exception e) {
-            System.err.println("Error processing Kafka message: " + e.getMessage());
+        var message = messageBuilder.buildMessage(subject, messageParameters);
+
+        switch (notification.getType()) {
+            case EMAIL -> emailService.sendMessage(to, subject.getMessage(), message);
+            default -> emailService.sendMessage(to, subject.toString(), message);
         }
     }
+
 }

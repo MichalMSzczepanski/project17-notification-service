@@ -4,3 +4,14 @@ server:
 spring:
   profiles:
     active: local
+  mail:
+    host: smtp-relay.brevo.com
+    port: 2525
+    username: michal.m.szczepanski@gmail.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
