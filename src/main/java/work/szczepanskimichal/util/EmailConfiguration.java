@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 public class EmailConfiguration {
 
     private final SmtpUtil smtpUtil;
+    private final CredentialsUtil credentialsUtil;
 
     @Bean
     public JavaMailSender javaMailSender() {
@@ -20,7 +21,7 @@ public class EmailConfiguration {
         mailSender.setHost(smtpUtil.getHost());
         mailSender.setPort(smtpUtil.getPort());
         mailSender.setUsername(smtpUtil.getUsername());
-        mailSender.setPassword(System.getenv("SPRING_MAIL_PASSWORD"));
+        mailSender.setPassword(credentialsUtil.getPassword());
         return mailSender;
     }
 

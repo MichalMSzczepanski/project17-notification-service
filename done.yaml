@@ -5,6 +5,7 @@
 3 semantics:
   - lorem
 2 config:
+  5 introduce custom properties library implemented in user-service
   4 configure prod env
   3 add email sending function
   2 add logger

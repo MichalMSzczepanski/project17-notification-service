@@ -1,4 +1,5 @@
 5 issues:
+  - message params can be null (activation for instance) throws NPE currently
 
 4 logic:
   - log process

@@ -35,7 +35,7 @@ public class MessageBuilder {
             //todo create custom exception
             throw new RuntimeException(e.getMessage());
         }
-        return String.format("Activate your account at: http://localhost:8081/activate/%s/%s", userId, secretKey);
+        return String.format("Activate your account at: http://localhost:8081/public/user/activate/%s/%s", userId, secretKey);
     }
 
     private String buildActivationConfirmationMessage() {
@@ -56,6 +56,6 @@ public class MessageBuilder {
             throw new RuntimeException(e.getMessage());
         }
         return String.format("[doesn't work without body] Set new password at: " +
-                "http://localhost:8081/set-new-password/%s", secretKey);
+                "http://localhost:8081/public/user/set-new-password/%s", secretKey);
     }
 }
