@@ -2,6 +2,7 @@ package work.szczepanskimichal.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import work.szczepanskimichal.exception.MissingMessageParameterException;
 import work.szczepanskimichal.model.Notification;
 
 @Service
@@ -15,10 +16,8 @@ public class NotificationService {
         var to = notification.getAddressee();
         var subject = notification.getSubject();
         var messageParameters = notification.getMessageParameters();
-        //todo message params can be null, fix
-        if (to == null || subject == null || messageParameters == null) {
-            //todo create custom exception
-            throw new IllegalArgumentException("Notification properties cannot be null");
+        if (to == null || subject == null) {
+            throw new MissingMessageParameterException(String.format("subject: %s, to: %s", subject, to));
         }
 
         var message = messageBuilder.buildMessage(subject, messageParameters);

@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import work.szczepanskimichal.exception.KafkaProcessingException;
+import work.szczepanskimichal.exception.NotificationProcessingException;
 import work.szczepanskimichal.model.Notification;
 
 @Component
@@ -20,11 +22,9 @@ public class NotificationListener {
             var notification = objectMapper.readValue(message, Notification.class);
             notificationService.processNotification(notification);
         } catch (JsonProcessingException e) {
-            //todo create custom exception
-            System.err.println("Error deserializing JSON message: " + e.getMessage());
+            throw new NotificationProcessingException(message);
         } catch (RuntimeException e) {
-            //todo create custom exception
-            System.err.println("Error processing Kafka message: " + e.getMessage());
+            throw new KafkaProcessingException(message);
         }
     }
 }

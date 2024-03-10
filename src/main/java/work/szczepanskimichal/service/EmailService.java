@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import work.szczepanskimichal.exception.EmailException;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +28,7 @@ public class EmailService implements Messenger {
             emailSender.send(message);
             log.info(String.format("Successfully sent email with subject: %s, to: %s", subject, to));
         } catch (MessagingException e) {
-            //todo create custom exception
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new EmailException(to, subject);
         }
     }
 }
