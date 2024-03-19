@@ -32,7 +32,7 @@ public class MessageBuilder {
         } catch (NoSuchElementException e) {
             throw new MissingMessageParameterException("secret key or userId in activation message");
         }
-        return String.format("Activate your account at: http://localhost:8081/public/user/activate/%s/%s", userId,
+        return String.format("Activate your account at: http://localhost:8080/public/user/activate/%s/%s", userId,
                 secretKey);
     }
 
@@ -56,6 +56,6 @@ public class MessageBuilder {
             throw new MissingMessageParameterException("build password update message");
         }
         return String.format("[doesn't work without body] Set new password at: " +
-                "http://localhost:8081/public/user/set-new-password/%s", secretKey);
+                "http://localhost:8080/public/user/set-new-password/%s", secretKey);
     }
 }
