@@ -3,7 +3,7 @@
 4 logic:
   - lorem
 3 semantics:
-  - lorem
+  1 add PASSWORD_UPDATED notification logic
 2 config:
   6 add global exception handler and custom exceptions
   5 introduce custom properties library implemented in user-service

@@ -16,7 +16,8 @@ public class MessageBuilder {
             case USER_ACTIVATION -> buildActivationMessage(parameters);
             case USER_ACTIVATION_CONFIRMATION -> buildActivationConfirmationMessage();
             case USER_EMAIL_UPDATE -> buildEmailUpdateMessage();
-            case USER_PASSWORD_UPDATE -> buildPasswordUpdateMessage(parameters);
+            case USER_PASSWORD_UPDATE -> buildPasswordUpdateRequestedMessage(parameters);
+            case USER_PASSWORD_UPDATED -> buildPasswordUpdatedMessage();
         };
     }
 
@@ -45,17 +46,22 @@ public class MessageBuilder {
         return "Your email has been updated successfully.";
     }
 
-    private String buildPasswordUpdateMessage(Map<String, String> parameters) {
+    private String buildPasswordUpdateRequestedMessage(Map<String, String> parameters) {
         if (parameters == null) {
-            throw new MessageParameterMapException("build password update message");
+            throw new MessageParameterMapException("build password update requested message");
         }
         String secretKey;
         try {
             secretKey = parameters.get("secretKey");
         } catch (NoSuchElementException e) {
-            throw new MissingMessageParameterException("build password update message");
+            throw new MissingMessageParameterException("build password update requested message");
         }
-        return String.format("[doesn't work without body] Set new password at: " +
+        return String.format("[doesn't work without body] Password update was requested - set new password at: " +
                 "http://localhost:8080/public/user/set-new-password/%s", secretKey);
+    }
+
+    private String buildPasswordUpdatedMessage(
+    ) {
+        return "Your password has been updated successfully.";
     }
 }

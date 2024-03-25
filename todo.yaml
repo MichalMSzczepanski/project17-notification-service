@@ -8,6 +8,7 @@
   - abstraction for notification execution
   - configure event deletion from kafka once consumed
 3 semantics:
+  - move email contents to bean and inject
 2 config:
   - logging configuration
   - pom.xml cleaning (user-service benchmark)
