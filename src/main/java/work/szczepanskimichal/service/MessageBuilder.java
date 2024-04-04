@@ -15,7 +15,8 @@ public class MessageBuilder {
         return switch (subject) {
             case USER_ACTIVATION -> buildActivationMessage(parameters);
             case USER_ACTIVATION_CONFIRMATION -> buildActivationConfirmationMessage();
-            case USER_EMAIL_UPDATE -> buildEmailUpdateMessage();
+            case USER_DEACTIVATION -> buildDeactivationMessage(parameters);
+            case USER_DATA_UPDATE -> buildUserDataUpdateMessage();
             case USER_PASSWORD_UPDATE -> buildPasswordUpdateRequestedMessage(parameters);
             case USER_PASSWORD_UPDATED -> buildPasswordUpdatedMessage();
         };
@@ -37,13 +38,29 @@ public class MessageBuilder {
                 secretKey);
     }
 
+    private String buildDeactivationMessage(Map<String, String> parameters) {
+        if (parameters == null) {
+            throw new MessageParameterMapException("activation message");
+        }
+        String userId;
+        String secretKey;
+        try {
+            userId = parameters.get("userId");
+            secretKey = parameters.get("secretKey");
+        } catch (NoSuchElementException e) {
+            throw new MissingMessageParameterException("secret key or userId in activation message");
+        }
+        return String.format("Your account has been deactivated. You can activate it again at: " +
+                "http://localhost:8080/v1/public/user/activate/%s/%s", userId, secretKey);
+    }
+
     private String buildActivationConfirmationMessage() {
         return "Your account has been activated successfully.";
     }
 
-    private String buildEmailUpdateMessage(
+    private String buildUserDataUpdateMessage(
     ) {
-        return "Your email has been updated successfully.";
+        return "Your user data has been updated successfully.";
     }
 
     private String buildPasswordUpdateRequestedMessage(Map<String, String> parameters) {
