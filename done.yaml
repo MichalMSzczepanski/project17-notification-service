@@ -3,6 +3,9 @@
 4 logic:
   - lorem
 3 semantics:
+  6 refactor GlobalExceptionHandler
+  5 override equals and hashcode for Notification
+  4 add tests for NotificationListener and NotificationService
   3 use data update notification logic
   2 user deactivation notification logic
   1 add PASSWORD_UPDATED notification logic

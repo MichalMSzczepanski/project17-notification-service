@@ -6,6 +6,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import work.szczepanskimichal.exception.KafkaProcessingException;
+import work.szczepanskimichal.exception.MessageException;
 import work.szczepanskimichal.exception.NotificationProcessingException;
 import work.szczepanskimichal.model.Notification;
 
@@ -18,6 +19,9 @@ public class NotificationListener {
 
     @KafkaListener(topics = "NOTIFICATION_TOPIC", groupId = "notification-consumers")
     public void receiveMessage(String message) {
+        if (message == null) {
+            throw new MessageException("NOTIFICATION_TOPIC");
+        }
         try {
             var notification = objectMapper.readValue(message, Notification.class);
             notificationService.processNotification(notification);
