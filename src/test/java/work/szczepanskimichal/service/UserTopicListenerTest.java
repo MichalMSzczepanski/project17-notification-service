@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import work.szczepanskimichal.exception.NotificationProcessingException;
+import work.szczepanskimichal.listener.UserTopicListener;
 import work.szczepanskimichal.model.Notification;
 import work.szczepanskimichal.model.NotificationSubject;
 import work.szczepanskimichal.model.NotificationType;
@@ -14,13 +15,13 @@ import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class NotificationListenerTest {
+class UserTopicListenerTest {
 
     @Mock
     private NotificationService notificationService;
 
     @InjectMocks
-    private NotificationListener notificationListener;
+    private UserTopicListener notificationListener;
 
     @Test
     void testReceiveMessageSuccess() {

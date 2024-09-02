@@ -19,6 +19,7 @@ public class MessageBuilder {
             case USER_DATA_UPDATE -> buildUserDataUpdateMessage();
             case USER_PASSWORD_UPDATE -> buildPasswordUpdateRequestedMessage(parameters);
             case USER_PASSWORD_UPDATED -> buildPasswordUpdatedMessage();
+            case REMINDER_TRIGGERING -> buildReminderTriggeringMessage(parameters);
         };
     }
 
@@ -80,5 +81,22 @@ public class MessageBuilder {
     private String buildPasswordUpdatedMessage(
     ) {
         return "Your password has been updated successfully.";
+    }
+
+
+    private String buildReminderTriggeringMessage(Map<String, String> parameters) {
+        if (parameters == null) {
+            throw new MessageParameterMapException("reminder triggering message");
+        }
+        String userId;
+        String secretKey;
+        try {
+            userId = parameters.get("userId");
+            secretKey = parameters.get("secretKey");
+        } catch (NoSuchElementException e) {
+            throw new MissingMessageParameterException("secret key or userId in activation message");
+        }
+        return String.format("Your account has been deactivated. You can activate it again at: " +
+                "http://localhost:8080/v1/public/user/activate/%s/%s", userId, secretKey);
     }
 }
