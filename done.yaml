@@ -3,6 +3,7 @@
 4 logic:
   - lorem
 3 semantics:
+  7 refactor notification_listener to user_topic_listener; introduce user_topic_listener
   6 refactor GlobalExceptionHandler
   5 override equals and hashcode for Notification
   4 add tests for NotificationListener and NotificationService
